@@ -1,0 +1,41 @@
+@media (max-width: 375px) {
+    .card {
+        max-inline-size: 100%;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .form-control {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .form-group {
+        margin-block-end: 12px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+
+    .list-group-item {
+        padding: 8px;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .card-footer {
+        font-size: 14px;
+    }
+
+    .position-fixed {
+        inset-block-end: 10px;
+        inset-inline-start: 10px;
+        inline-size: 50px;
+        block-size: 50px;
+        padding: 10px;
+    }
+}

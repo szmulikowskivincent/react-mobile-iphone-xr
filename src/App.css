@@ -1,38 +1,55 @@
-.App {
+body,
+html {
+  block-size: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.iphone-xr-cover {
+  inline-size: 375px;
+  block-size: 812px;
+  border: 15px solid black;
+  border-radius: 40px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: white;
+  overflow: hidden;
+}
+
+.pagination-container {
+  position: fixed;
+  margin-block-end: 20px;
+  inset-block-end: 0px;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  padding: 10px;
+  background-color: transparent;
+  z-index: 9999;
+}
+
+.pagination-link {
+  color: #000000 !important;
+  font-size: 12px;
+  padding: 10px 15px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.pagination-link:hover {
+  background-color: #4589d1;
+  border-radius: 5px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media only screen and (max-width: 375px) {
+  .pagination-container {
+    inset-block-end: 10px;
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+  .pagination-link {
+    font-size: 16px;
+    padding: 8px 12px;
   }
 }

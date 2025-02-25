@@ -1,0 +1,178 @@
+.about-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    block-size: 75vh;
+    padding: 20px;
+    background-color: transparent;
+}
+
+.white-box {
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 8px;
+    inline-size: 100%;
+    max-inline-size: 400px;
+    box-shadow: transparent;
+}
+
+.logo-container {
+    position: fixed;
+    inset-block-start: 20px;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    inline-size: auto;
+}
+
+.logo-container img {
+    inline-size: 100%;
+    block-size: auto;
+}
+
+.about-header h2 {
+    font-size: 1.5rem;
+    color: inherit;
+}
+
+.about-section-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.about-card {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.about-card h5 {
+    font-size: 1.1rem;
+    color: inherit;
+}
+
+.faq-section h3 {
+    font-size: 1.25rem;
+    margin-block-end: 10px;
+    text-align: center;
+    color: inherit;
+}
+
+.list-group-item {
+    padding: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.list-group-item:hover {
+    background-color: #f0f0f0;
+}
+
+.faq-section p {
+    font-size: 1.1rem;
+    margin-block-end: 10px;
+    margin-block-start: -5px;
+    text-align: center;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    inset-block-end: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    inline-size: 80%;
+    max-inline-size: 350px;
+}
+
+@media (max-width: 828px) {
+    .navbar-toggler {
+        display: block;
+    }
+
+    .navbar-collapse {
+        inline-size: 100%;
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-nav .nav-item {
+        inline-size: 100%;
+    }
+
+    .about-container {
+        padding: 15px;
+    }
+
+    .about-header p {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .about-card p {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .about-section-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .about-card {
+        margin-block-end: 20px;
+    }
+
+    .faq-section button {
+        inline-size: 100%;
+        padding: 10px;
+    }
+
+    .modal-content {
+        inline-size: 80%;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 829px) {
+    .navbar-toggler {
+        display: none;
+    }
+
+    .navbar-nav {
+        flex-direction: row;
+    }
+
+    .about-header p {
+        font-size: 18px;
+    }
+
+    .about-card p {
+        font-size: 16px;
+    }
+
+    .about-section-container {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+}
