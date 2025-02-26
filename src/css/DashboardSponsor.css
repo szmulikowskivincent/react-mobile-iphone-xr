@@ -1,0 +1,49 @@
+@media (max-width: 576px) {
+    .card {
+        padding: 0.5rem;
+        text-align: center;
+    }
+
+    .card .text-primary,
+    .card .text-success,
+    .card .text-danger,
+    .card .text-warning {
+        font-size: 25px;
+    }
+
+    .responsive-container {
+        block-size: 250px;
+    }
+
+    .modal-content {
+        max-inline-size: 90%;
+    }
+}
+
+@media (min-width: 768px) {
+    .container-fluid {
+        padding: 2rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+
+    .responsive-container {
+        block-size: 300px;
+    }
+}
+
+@media (min-width: 992px) {
+    .card {
+        padding: 1.5rem;
+    }
+
+    .responsive-container {
+        block-size: 350px;
+    }
+
+    .modal-content {
+        max-inline-size: 600px;
+    }
+}

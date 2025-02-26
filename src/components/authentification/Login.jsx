@@ -53,9 +53,9 @@ const Login = () => {
         if (formData.status === "club") {
           navigate("/club");
         } else if (formData.status === "sponsor") {
-          navigate("/sponsors");
+          navigate("/sponsor");
         } else {
-          navigate("/abonnement");
+          navigate("/sponsor");
         }
       } else {
         setErrorMessage("Erreur de connexion. Essayez à nouveau.");
@@ -184,7 +184,7 @@ const Login = () => {
             </div>
 
             {errorMessage && (
-              <p className="text-danger text-center">{errorMessage}</p>
+              <p style={{fontSize: "12px"}} className="text-danger text-center">{errorMessage}</p>
             )}
 
             <button
@@ -192,7 +192,7 @@ const Login = () => {
               className="btn btn-primary w-100"
               disabled={!isFormValid}
             >
-              <i className="bi bi-box-arrow-in-right"></i>  Login
+              <i className="bi bi-box-arrow-in-right"></i> Login
             </button>
           </form>
         </div>

@@ -1,0 +1,51 @@
+@media (max-width: 768px) {
+
+    .section-card {
+        inline-size: 100% !important;
+        margin-block-end: 1rem;
+    }
+
+    .section-card .card-body {
+        padding: 1rem;
+    }
+
+    .section-card .card-body .icon-title {
+        flex-direction: row;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .section-card .card-body .icon-title .icon {
+        margin-inline-end: 10px;
+    }
+
+    .section-card .card-body .icon-title .title {
+        font-size: 1rem;
+    }
+
+    .modal-dialog {
+        inline-size: 90%;
+        max-inline-size: 100%;
+    }
+
+    .modal-body {
+        padding: 1rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .cover-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .section-card .card-body img {
+        max-inline-size: 50px;
+        margin: 0 auto;
+    }
+}

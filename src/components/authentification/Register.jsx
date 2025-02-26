@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { FaUser, FaEnvelope, FaLock, FaWhatsapp } from "react-icons/fa"; 
+import { FaUser, FaEnvelope, FaLock, FaWhatsapp } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import "../../css/Register.css";
 
@@ -111,7 +111,7 @@ const Register = () => {
           }}
         >
           <h2 className="text-center mb-4">
-            <i className="bi bi-person-plus me-2"></i>  Register
+            <i className="bi bi-person-plus me-2"></i> Register
           </h2>
 
           <form onSubmit={handleSubmit}>
@@ -172,22 +172,28 @@ const Register = () => {
             {errorMessage && (
               <p className="text-danger text-center">{errorMessage}</p>
             )}
-            <button 
+            <button
               type="submit"
               className="btn btn-primary w-100"
               disabled={!isFormValid}
             >
-              <i className="bi bi-person-check"></i>  Register
+              <i className="bi bi-person-check"></i> Register
             </button>
-            <p className="text-danger text-center mt-3">
+            <p
+              style={{ fontSize: "14px" }}
+              className="text-danger text-center mt-3"
+            >
               <i className="bi bi-exclamation-triangle-fill me-2"></i>
               Si utilisateur existe déjà !
             </p>
             <Link to="/login" className="btn btn-secondary w-100">
               <i className="bi bi-box-arrow-in-right"></i> Login
             </Link>
-            <p className="text-primary text-center mt-3">
-              *Veuillez vous enregistrer pour accéder à notre application...
+            <p
+              style={{ fontSize: "14px" }}
+              className="text-primary text-center mt-3"
+            >
+              *Enregistrez vous et accez à notre application...
             </p>
           </form>
         </div>

@@ -79,7 +79,7 @@ const Services = () => {
                   {offer.title}
                 </div>
                 <div className="card-body">
-                  <i className={offer.icon} style={{ fontSize: "2rem" }}></i>
+                  <i className={offer.icon} style={{ fontSize: "16px" }}></i>
                   <h5 className="card-title">{offer.price}</h5>
                   <ul className="list-unstyled">
                     {offer.features.map((feature, idx) => (
@@ -134,7 +134,7 @@ const Services = () => {
           borderRadius: "30px",
           padding: "10px 30px",
           position: "absolute",
-          bottom: "75px",
+          bottom: "95px",
         }}
       >
         Accéder aux offres

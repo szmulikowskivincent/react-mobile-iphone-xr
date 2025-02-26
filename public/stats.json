@@ -1,0 +1,49 @@
+[
+  {
+    "date": "2024-02-01",
+    "produit": "Vareuse de sport",
+    "quantite": 50
+  },
+  {
+    "date": "2024-02-02",
+    "produit": "Parka Nike",
+    "quantite": 75,
+    "Prix": 115
+  },
+  {
+    "date": "2024-02-03",
+    "produit": "Casquette ADIDAS",
+    "quantite": 100,
+    "Prix": 45
+  },
+  {
+    "date": "2024-02-04",
+    "produit": "Casquette de sport",
+    "quantite": 60,
+    "Prix": 12
+  },
+  {
+    "date": "2024-02-05",
+    "produit": "Shoort ADIDAS vert",
+    "quantite": 90,
+    "Prix": 55
+  },
+  {
+    "date": "2024-02-02",
+    "produit": "Tenue de course",
+    "quantite": 90,
+    "Prix": 95
+  },
+  {
+    "date": "2024-02-025",
+    "produit": "Balon de footbaal",
+    "quantite": 90,
+    "Prix": 50
+  },
+  {
+    "date": "2024-02-05",
+    "produit": "Botines de football ADIDAS",
+    "quantite": 90,
+    "Prix": 250
+  }
+]
