@@ -140,13 +140,15 @@ const Navbar = () => {
               </Link>
 
               <img
-                style={{ marginTop: "70px" }}
+                style={{ marginTop: "20px" }}
                 src="/qrcode_localhost-removebg-preview.png"
                 width="50%"
                 alt="QR Code"
                 onClick={() => navigate("/dashboard-vente-achat")}
               />
-              <p style={{ color: "black", fontSize: "14px", marginTop: "15px" }}>
+              <p
+                style={{ color: "black", fontSize: "14px", marginTop: "15px" }}
+              >
                 <i
                   className="bi bi-cart-fill"
                   style={{ marginRight: "5px" }}
