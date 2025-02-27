@@ -50,7 +50,6 @@ const Login = () => {
         const sessionToken = btoa(formData.email);
         sessionStorage.setItem("authToken", sessionToken);
 
-        // Rediriger si l'email est celui de l'admin
         if (formData.email === "marie.admin@gmail.com") {
           navigate("/database");
         } else if (formData.status === "club") {
@@ -92,6 +91,7 @@ const Login = () => {
         padding: "20px",
         border: "9px solid black",
         borderRadius: "20px",
+        boxShadow: "0 0 20px 5px rgba(0, 255, 0, 0.3)",
       }}
     >
       {/* WhatsApp Icon */}

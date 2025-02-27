@@ -35,7 +35,13 @@ const Cover = ({ children }) => {
   };
 
   return (
-    <div className="iphone-xr-cover" style={{ position: "relative" }}>
+    <div
+      className="iphone-xr-cover"
+      style={{
+        position: "relative",
+        boxShadow: "0 0 20px 5px rgba(0, 255, 0, 0.3)",
+      }}
+    >
       <Navbar />
       {children}
       {isLogoVisible && (

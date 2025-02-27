@@ -152,6 +152,7 @@ const DashboardSportClub = () => {
         border: "9px solid black",
         borderRadius: "20px",
         position: "relative",
+        boxShadow: "0 0 20px 5px rgba(0, 255, 0, 0.3)",
       }}
     >
       <Container fluid className="p-3" style={{ maxHeight: "100%" }}>

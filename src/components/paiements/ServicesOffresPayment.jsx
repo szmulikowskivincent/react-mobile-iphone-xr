@@ -75,6 +75,7 @@ const Services = () => {
         backgroundColor: "#fff",
         borderRadius: "15px",
         overflow: "hidden",
+        boxShadow: "0 0 20px 5px rgba(0, 255, 0, 0.3)",
       }}
     >
       <div
@@ -83,7 +84,7 @@ const Services = () => {
           width: "100%",
           maxWidth: "375px",
           height: "100%",
-          backgroundColor: "transparent", // Arrière-plan transparent
+          backgroundColor: "transparent", 
           paddingBottom: "20px",
         }}
       >

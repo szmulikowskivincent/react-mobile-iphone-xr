@@ -104,6 +104,7 @@ export default function PaymentConsole() {
         border: "9px solid black",
         borderRadius: "20px",
         transformOrigin: "top",
+        boxShadow: "0 0 20px 5px rgba(0, 255, 0, 0.3)",
       }}
     >
       {/* WhatsApp Icon in top right */}

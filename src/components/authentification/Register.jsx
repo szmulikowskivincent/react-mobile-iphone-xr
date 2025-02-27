@@ -63,6 +63,7 @@ const Register = () => {
         padding: "20px",
         border: "9px solid black",
         borderRadius: "20px",
+        boxShadow: "0 0 20px 5px rgba(0, 255, 0, 0.3)",
       }}
     >
       {/* Logo centré */}

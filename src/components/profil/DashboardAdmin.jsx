@@ -79,6 +79,7 @@ const DashboardAdmin = () => {
         border: "9px solid black",
         borderRadius: "20px",
         position: "relative",
+        boxShadow: "0 0 20px 5px rgba(0, 255, 0, 0.3)",
       }}
     >
       <Container fluid className="p-3">
@@ -218,45 +219,100 @@ const DashboardAdmin = () => {
                   <div>
                     <p>📦 Produits en stock</p>
                     {products.length > 0 ? (
-                      products.map((product, index) => (
-                        <div key={index}>
-                          <p>
-                            🏷️ {product.name} - {product.price} €
-                          </p>
-                        </div>
-                      ))
+                      <Row className="g-3">
+                        {products.map((product, index) => (
+                          <Col xs={12} key={index}>
+                            <Card className="border shadow-sm p-2">
+                              <Card.Body className="d-flex align-items-center">
+                                <FaBox
+                                  size={24}
+                                  className="me-3 text-success"
+                                />
+                                <div>
+                                  <Card.Title className="mb-1">
+                                    {product.name}
+                                  </Card.Title>
+                                  <Card.Text className="text-muted">
+                                    💰 {product.price} €
+                                  </Card.Text>
+                                </div>
+                              </Card.Body>
+                            </Card>
+                          </Col>
+                        ))}
+                      </Row>
                     ) : (
                       <p>Aucun produit en stock</p>
                     )}
                   </div>
                 )}
 
+                {/* Section Messages */}
                 {activeSection === "messages" && (
                   <div>
                     <p>✉ Messages</p>
                     {messages.length > 0 ? (
-                      messages.map((message, index) => (
-                        <div key={index}>
-                          <p>📨 {message.content}</p>
-                        </div>
-                      ))
+                      <Row className="g-3">
+                        {messages.map((message, index) => (
+                          <Col xs={12} key={index}>
+                            <Card className="border shadow-sm p-2">
+                              <Card.Body>
+                                <div className="d-flex align-items-center">
+                                  <FaEnvelope
+                                    size={24}
+                                    className="me-3 text-primary"
+                                  />
+                                  <div>
+                                    <Card.Title className="mb-1">
+                                      {message.sender}
+                                    </Card.Title>
+                                    <Card.Text className="text-muted">
+                                      📨 {message.content}
+                                    </Card.Text>
+                                  </div>
+                                </div>
+                              </Card.Body>
+                            </Card>
+                          </Col>
+                        ))}
+                      </Row>
                     ) : (
                       <p>Aucun message</p>
                     )}
                   </div>
                 )}
 
+                {/* Section Sponsors */}
                 {activeSection === "sponsors" && (
                   <div>
-                    <p>🏷️ Sponsors</p>
+                    <p>🏆 Sponsors</p>
                     {sponsors.length > 0 ? (
-                      sponsors.map((sponsor, index) => (
-                        <div key={index}>
-                          <p>{sponsor.name}</p>
-                        </div>
-                      ))
+                      <Row className="g-3">
+                        {sponsors.map((sponsor, index) => (
+                          <Col xs={12} key={index}>
+                            <Card className="border shadow-sm p-2">
+                              <Card.Body>
+                                <div className="d-flex align-items-center">
+                                  <FaUserTie
+                                    size={24}
+                                    className="me-3 text-warning"
+                                  />
+                                  <div>
+                                    <Card.Title className="mb-1">
+                                      {sponsor.name}
+                                    </Card.Title>
+                                    <Card.Text className="text-muted">
+                                      📧 {sponsor.email}
+                                    </Card.Text>
+                                  </div>
+                                </div>
+                              </Card.Body>
+                            </Card>
+                          </Col>
+                        ))}
+                      </Row>
                     ) : (
-                      <p>🥇 Aucun sponsor</p>
+                      <p>Aucun sponsor</p>
                     )}
                   </div>
                 )}
@@ -265,11 +321,29 @@ const DashboardAdmin = () => {
                   <div>
                     <p>♠ Membres</p>
                     {members.length > 0 ? (
-                      members.map((member, index) => (
-                        <div key={index}>
-                          <p>🎫 {member.name}</p>
-                        </div>
-                      ))
+                      <Row className="g-3">
+                        {members.map((member, index) => (
+                          <Col xs={12} key={index}>
+                            <Card className="border shadow-sm p-2">
+                              <Card.Body className="d-flex align-items-center">
+                                <FaUsers
+                                  size={24}
+                                  className="me-3 text-primary"
+                                />
+                                <div>
+                                  <Card.Title className="mb-1">
+                                    {member.name}
+                                  </Card.Title>
+                                  <Card.Text className="text-muted">
+                                    <FaEnvelope className="me-2" />{" "}
+                                    {member.email}
+                                  </Card.Text>
+                                </div>
+                              </Card.Body>
+                            </Card>
+                          </Col>
+                        ))}
+                      </Row>
                     ) : (
                       <p>Aucun membre</p>
                     )}
