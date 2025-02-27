@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaUserShield, FaSignOutAlt, FaDatabase } from "react-icons/fa";
+import { FaUserShield, FaSignOutAlt, FaDatabase, FaBell } from "react-icons/fa";
 import "../../css/Navbar.css";
 
 const Navbar = () => {
@@ -9,6 +9,7 @@ const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [role, setRole] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     const email = localStorage.getItem("userEmail");
@@ -35,6 +36,10 @@ const Navbar = () => {
       setIsAuthenticated(false);
       setRole("Invité");
     }
+
+    const storedNotifications =
+      JSON.parse(localStorage.getItem("events")) || [];
+    setNotifications(storedNotifications);
   }, []);
 
   const handleLogout = () => {
@@ -110,71 +115,55 @@ const Navbar = () => {
           {!isAuthenticated && (
             <div
               className="d-flex flex-column align-items-center justify-content-center"
-              style={{ marginTop: "100px" }}
+              style={{ marginTop: "80px" }}
             >
               <Link to="/register" className="w-100 mb-3">
-                <button
-                  style={{
-                    fontSize: "25px",
-                    letterSpacing: "1px",
-                    fontWeight: "600",
-                    transition: "all 0.3s ease-in-out",
-                  }}
-                  className="btn btn-outline-success py-3 w-100 rounded-4 shadow-lg hover:bg-success hover:text-white hover:border-success focus:outline-none focus:ring-2 focus:ring-success"
-                >
+                <button className="btn btn-outline-success py-3 w-100 rounded-4 shadow-lg">
                   <i className="bi bi-person-plus me-2"></i> Register
                 </button>
               </Link>
               <Link to="/login" className="w-100">
-                <button
-                  style={{
-                    fontSize: "25px",
-                    letterSpacing: "1px",
-                    fontWeight: "600",
-                    transition: "all 0.3s ease-in-out",
-                  }}
-                  className="btn btn-outline-primary py-3 w-100 rounded-4 shadow-lg hover:bg-primary hover:text-white hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-                >
+                <button className="btn btn-outline-primary py-3 w-100 rounded-4 shadow-lg">
                   <i className="bi bi-box-arrow-in-right me-2"></i> Login
                 </button>
               </Link>
-
-              <img
-                style={{ marginTop: "20px" }}
-                src="/qrcode_localhost-removebg-preview.png"
-                width="50%"
-                alt="QR Code"
-                onClick={() => navigate("/dashboard-vente-achat")}
-              />
-              <p
-                style={{ color: "black", fontSize: "14px", marginTop: "15px" }}
-              >
-                <i
-                  className="bi bi-cart-fill"
-                  style={{ marginRight: "5px" }}
-                ></i>
-                Cliquez ici pour accéder au market shop!
-              </p>
             </div>
           )}
 
           {isAuthenticated && role && (
             <div className="d-flex align-items-center">
-              {/* Badge Role */}
-              <span className="badge">
-                <FaUserShield size={28} /> {role}
-              </span>
+              {/* Cloche de Notification */}
+              <div className="position-relative notification-container">
+                <FaBell
+                  style={{
+                    color: "red",
+                    marginTop: "-170px",
+                    marginLeft: "200px",
+                  }}
+                  size={24}
+                  className="notification-bell"
+                />
+                {notifications.length > 0 && (
+                  <div
+                    style={{ marginLeft: "85px" }}
+                    className="notification-message"
+                  >
+                    {`${notifications.length} nouvel événement`}
+                  </div>
+                )}
+              </div>
+
+              {/* Avatar */}
+              <div className="avatar">{initials}</div>
 
               {/* Déconnexion */}
               <button
+                style={{ marginBottom: "50px" }}
                 className="btn btn-outline-danger btn-logout"
                 onClick={handleLogout}
               >
                 <FaSignOutAlt size={28} /> Se Déconnecter
               </button>
-
-              {/* Avatar avec Initiales */}
-              <div className="avatar">{initials}</div>
             </div>
           )}
         </div>

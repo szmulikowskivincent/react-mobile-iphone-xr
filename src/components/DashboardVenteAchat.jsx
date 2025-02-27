@@ -13,6 +13,7 @@ const DashboardVenteAchat = () => {
   const [toastMessage, setToastMessage] = useState("");
   const [hoveredProduct, setHoveredProduct] = useState(null);
   const [modalImage, setModalImage] = useState(null);
+  const [showPaymentToast, setShowPaymentToast] = useState(false);
 
   const navigate = useNavigate();
 
@@ -39,16 +40,17 @@ const DashboardVenteAchat = () => {
     setTimeout(() => setShowToast(false), 3000);
   };
 
-  const nextPage = () => {
-    if (currentPageProduct < Math.ceil(products.length / productsPerPage)) {
-      setCurrentPageProduct(currentPageProduct + 1);
-    }
+  const calculateTotal = () => {
+    const total = cart.reduce((acc, item) => acc + item.price, 0);
+    return (total * 1.05).toFixed(2); // Ajout de la commission de 5%
   };
 
-  const prevPage = () => {
-    if (currentPageProduct > 1) {
-      setCurrentPageProduct(currentPageProduct - 1);
-    }
+  const handlePayment = () => {
+    setShowPaymentToast(true);
+    setTimeout(() => {
+      setShowPaymentToast(false);
+      navigate("/paiement");
+    }, 2000);
   };
 
   return (
@@ -69,6 +71,7 @@ const DashboardVenteAchat = () => {
         position: "relative",
       }}
     >
+      {/* Icône Panier */}
       <div style={{ position: "absolute", top: "10px", left: "10px" }}>
         <i className="bi bi-cart-fill" style={{ fontSize: "24px" }}></i>
         {cart.length > 0 && (
@@ -79,26 +82,66 @@ const DashboardVenteAchat = () => {
               top: "0px",
               right: "-50px",
               fontSize: "18px",
-              color: "red"
+              color: "red",
             }}
           >
-             {cart.length}
+            {cart.length}
           </span>
         )}
       </div>
+
+      {/* Icône Paiement */}
+      {cart.length > 0 && (
+        <div style={{ position: "absolute", top: "10px", right: "10px" }}>
+          <i
+            className="bi bi-credit-card"
+            style={{ fontSize: "24px", cursor: "pointer" }}
+            title={`Payer ${calculateTotal()} €`}
+            onClick={handlePayment}
+          ></i>
+          <span
+            style={{
+              fontSize: "14px",
+              fontWeight: "bold",
+              display: "block",
+              textAlign: "center",
+              marginTop: "5px",
+            }}
+          >
+            {calculateTotal()} €
+          </span>
+        </div>
+      )}
 
       {showToast && (
         <div
           className="toast show position-fixed text-white bg-danger p-3 rounded"
           style={{
             zIndex: 1050,
-            bottom: "50px",
-            right: "50px",
+            bottom: "100px",
+            right: "100px",
+            width: "255px",
             opacity: 0.8,
             transform: "translate(18px, 32px)",
           }}
         >
           {toastMessage}
+        </div>
+      )}
+
+      {showPaymentToast && (
+        <div
+          className="toast show position-fixed text-white bg-success p-3 rounded"
+          style={{
+            zIndex: 1050,
+            bottom: "100px",
+            right: "100px",
+            width: "255px",
+            opacity: 0.8,
+            transform: "translate(18px, 32px)",
+          }}
+        >
+          Redirection vers le paiement...
         </div>
       )}
 
@@ -145,7 +188,8 @@ const DashboardVenteAchat = () => {
                   <i className="bi bi-gift"></i> {product.name}
                 </p>
                 <p className="card-text" style={{ fontSize: "0.8rem" }}>
-                📌 {product.description.length > 50
+                  📌{" "}
+                  {product.description.length > 50
                     ? product.description.substring(0, 50) + "..."
                     : product.description}
                 </p>
@@ -176,7 +220,7 @@ const DashboardVenteAchat = () => {
       <div style={{ marginTop: "50px" }} className="pagination">
         <button
           className="btn btn-secondary btn-sm me-2"
-          onClick={prevPage}
+          onClick={() => setCurrentPageProduct((prev) => Math.max(prev - 1, 1))}
           disabled={currentPageProduct === 1}
         >
           Précédent
@@ -184,7 +228,11 @@ const DashboardVenteAchat = () => {
         <span> Page {currentPageProduct} </span>
         <button
           className="btn btn-secondary btn-sm ms-2"
-          onClick={nextPage}
+          onClick={() =>
+            setCurrentPageProduct((prev) =>
+              Math.min(prev + 1, Math.ceil(products.length / productsPerPage))
+            )
+          }
           disabled={
             currentPageProduct === Math.ceil(products.length / productsPerPage)
           }

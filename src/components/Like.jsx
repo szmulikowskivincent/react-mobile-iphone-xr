@@ -21,8 +21,8 @@ const LikeButton = () => {
       onClick={handleLike}
       style={{
         position: "fixed",
-        bottom: "820px",
-        left: "290px",
+        bottom: "30px",
+        left: "295px",
         width: "105px",
         color: "transparent",
         border: "none",
@@ -48,4 +48,3 @@ const LikeButton = () => {
 };
 
 export default LikeButton;
-

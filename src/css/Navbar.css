@@ -29,14 +29,14 @@
 
 .avatar {
     position: absolute;
-    inset-block-start: 15px;
-    inset-inline-end: 25px;
-    inline-size: 50px;
-    block-size: 50px;
+    inset-block-start: 360px;
+    inset-inline-end: 140px;
+    inline-size: 70px;
+    block-size: 70px;
     background-color: transparent;
     color: rgb(66, 233, 233);
     font-weight: bold;
-    font-size: 18px;
+    font-size: 50px;
     display: flex;
     align-items: center;
     justify-content: center;

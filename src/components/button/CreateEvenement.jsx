@@ -104,20 +104,23 @@ const DashboardSportClub = () => {
                   name="name"
                   value={eventData.name}
                   onChange={handleInputChange}
-                  placeholder="Nom de l'événement"
+                  placeholder="&#160;&#160;Nom de l'événement"
                   style={formControlStyle}
                 />
               </Form.Group>
 
               <Form.Group className="mb-3 position-relative">
-                <i className="bi bi-calendar-date position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                <i
+                  className="bi bi-calendar-date position-absolute top-50 start-0 translate-middle-y ms-3"
+                  style={{ left: "30px" }}
+                ></i>
                 <Form.Control
                   type="date"
                   name="date"
                   value={eventData.date}
                   onChange={handleInputChange}
                   placeholder="Date"
-                  style={formControlStyle}
+                  style={{ ...formControlStyle, paddingLeft: "35px" }}
                 />
               </Form.Group>
 
@@ -129,7 +132,7 @@ const DashboardSportClub = () => {
                   min="1"
                   value={eventData.seats}
                   onChange={handleInputChange}
-                  placeholder="Nombre de places disponibles"
+                  placeholder="&#160;&#160;Nombre de places disponibles"
                   style={formControlStyle}
                 />
               </Form.Group>
