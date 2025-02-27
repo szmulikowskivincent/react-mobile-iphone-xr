@@ -42,7 +42,7 @@ const DashboardVenteAchat = () => {
 
   const calculateTotal = () => {
     const total = cart.reduce((acc, item) => acc + item.price, 0);
-    return (total * 1.05).toFixed(2); // Ajout de la commission de 5%
+    return (total * 1.05).toFixed(2); 
   };
 
   const handlePayment = () => {

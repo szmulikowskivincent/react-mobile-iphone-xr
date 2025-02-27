@@ -158,7 +158,7 @@ const Navbar = () => {
 
               {/* Déconnexion */}
               <button
-                style={{ marginBottom: "50px" }}
+                style={{ marginBottom: "55px" }}
                 className="btn btn-outline-danger btn-logout"
                 onClick={handleLogout}
               >
@@ -168,6 +168,21 @@ const Navbar = () => {
           )}
         </div>
       </div>
+
+      {/* QR Code avec redirection */}
+      <a href="/dashboard-vente-achat">
+        <img
+          style={{
+            position: "fixed",
+            top: "540px",
+            left: "120px",
+            width: "40%",
+            zIndex: 1000,
+          }}
+          src="qrcode_localhost-removebg-preview.png"
+          alt="QR Code"
+        />
+      </a>
     </nav>
   );
 };

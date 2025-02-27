@@ -27,6 +27,7 @@ import PaginationRouter from "./components/navigation/PaginationRouter";
 
 import DashboardSponsor from "./components/profil/DashboardSponsor";
 import DashboardSportClub from "./components/profil/DashboardSportClub";
+import DashboardAdmin from "./components/profil/DashboardAdmin";
 
 function App() {
   return (
@@ -41,8 +42,10 @@ function App() {
         <Route path="/dashboard" element={<DashboardSponsores />} />
         <Route path="/offres" element={<ServicesOffresPayment />} />
         <Route path="/paiement" element={<PaymentConsole />} />
+
         <Route path="/sponsor" element={<DashboardSponsor />} />
         <Route path="/club" element={<DashboardSportClub />} />
+        <Route path="/database" element={<DashboardAdmin />} />
 
         <Route
           path="/dashboard-vente-achat"
