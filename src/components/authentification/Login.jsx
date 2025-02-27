@@ -50,7 +50,10 @@ const Login = () => {
         const sessionToken = btoa(formData.email);
         sessionStorage.setItem("authToken", sessionToken);
 
-        if (formData.status === "club") {
+        // Rediriger si l'email est celui de l'admin
+        if (formData.email === "marie.admin@gmail.com") {
+          navigate("/database");
+        } else if (formData.status === "club") {
           navigate("/club");
         } else if (formData.status === "sponsor") {
           navigate("/sponsor");
@@ -184,7 +187,12 @@ const Login = () => {
             </div>
 
             {errorMessage && (
-              <p style={{fontSize: "12px"}} className="text-danger text-center">{errorMessage}</p>
+              <p
+                style={{ fontSize: "12px" }}
+                className="text-danger text-center"
+              >
+                {errorMessage}
+              </p>
             )}
 
             <button

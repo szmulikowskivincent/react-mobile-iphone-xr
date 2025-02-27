@@ -11,6 +11,7 @@ import {
   Spinner,
 } from "react-bootstrap";
 import { FaBox, FaUsers, FaEnvelope, FaUserTie } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const DashboardAdmin = () => {
   const [loading, setLoading] = useState(true);
@@ -20,6 +21,7 @@ const DashboardAdmin = () => {
   const [messages, setMessages] = useState([]);
   const [sponsors, setSponsors] = useState([]);
   const [members, setMembers] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 3000);
@@ -79,216 +81,226 @@ const DashboardAdmin = () => {
         position: "relative",
       }}
     >
-      <div style={{ padding: "10px", backgroundColor: "#fff" }}>
-        {" "}
-        {/* Réduction du padding */}
-        <Container fluid className="p-3">
-          <img
-            src="/logo_ZakUp_v1.webp"
-            alt="Logo"
-            className="d-flex justify-content-center"
-            style={{
-              width: "300px",
-              height: "auto",
-              position: "fixed",
-              top: 50,
-              left: "50%",
-              transform: "translateX(-50%)",
-              zIndex: 1000,
-              marginBottom: "400px",
-            }}
+      <Container fluid className="p-3">
+        <img
+          src="/logo_ZakUp_v1.webp"
+          alt="Logo"
+          className="d-flex justify-content-center"
+          style={{
+            width: "300px",
+            height: "auto",
+            position: "fixed",
+            top: 50,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 1000,
+            marginBottom: "400px",
+          }}
+        />
+
+        <DataAdminVente />
+
+        <p
+          className="text-center mb-4"
+          style={{ fontSize: "16px", marginTop: "150px" }}
+        >
+          <FaUserShield
+            size={20}
+            style={{ verticalAlign: "middle", marginRight: "8px" }}
           />
+          Dashboard Admin
+        </p>
 
-          <DataAdminVente />
+        {loading ? (
+          <div className="text-center">
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Chargement...</span>
+            </Spinner>
+          </div>
+        ) : (
+          <>
+            <Row className="g-2">
+              {/* Section Produits */}
+              <Col xs={12} sm={6} md={6} className="text-center">
+                <Card
+                  onClick={() => handleShowModal("produits")}
+                  className="shadow-sm"
+                  style={{
+                    cursor: "pointer",
+                    backgroundColor: "#d4edda",
+                    marginTop: "0px",
+                  }}
+                >
+                  <Card.Body>
+                    <FaBox size={30} />
+                    <Card.Title>Produits en stock</Card.Title>
+                  </Card.Body>
+                </Card>
+              </Col>
+              {/* Section Messages */}
+              <Col xs={12} sm={6} md={6} className="text-center">
+                <Card
+                  onClick={() => handleShowModal("messages")}
+                  className="shadow-sm"
+                  style={{
+                    cursor: "pointer",
+                    backgroundColor: "#f8d7da",
+                  }}
+                >
+                  <Card.Body>
+                    <FaEnvelope size={30} />
+                    <Card.Title>Messages</Card.Title>
+                  </Card.Body>
+                </Card>
+              </Col>
+              {/* Section Sponsors */}
+              <Col xs={12} sm={6} md={6} className="text-center">
+                <Card
+                  onClick={() => handleShowModal("sponsors")}
+                  className="shadow-sm"
+                  style={{
+                    cursor: "pointer",
+                    backgroundColor: "#cce5ff",
+                  }}
+                >
+                  <Card.Body>
+                    <FaUserTie size={30} />
+                    <Card.Title>Sponsors</Card.Title>
+                  </Card.Body>
+                </Card>
+              </Col>
+              {/* Section Membres */}
+              <Col xs={12} sm={6} md={6} className="text-center">
+                <Card
+                  onClick={() => handleShowModal("members")}
+                  className="shadow-sm"
+                  style={{
+                    cursor: "pointer",
+                    backgroundColor: "#fff3cd",
+                  }}
+                >
+                  <Card.Body>
+                    <FaUsers size={30} />
+                    <Card.Title>Membres</Card.Title>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
 
-          <p
-            className="text-center mb-4"
-            style={{ fontSize: "16px", marginTop: "150px" }}
-          >
-            <FaUserShield
-              size={20}
-              style={{ verticalAlign: "middle", marginRight: "8px" }}
-            />
-            Dashboard Admin
-          </p>
-          {loading ? (
-            <div className="text-center">
-              <Spinner animation="border" role="status">
-                <span className="visually-hidden">Chargement...</span>
-              </Spinner>
-            </div>
-          ) : (
-            <>
-              <Row className="g-2">
-                {" "}
-                {/* Réduction de l'espacement entre les cartes */}
-                {/* Section Produits */}
-                <Col xs={12} sm={6} md={6} className="text-center">
-                  <Card
-                    onClick={() => handleShowModal("produits")}
-                    className="shadow-sm"
-                    style={{
-                      cursor: "pointer",
-                      backgroundColor: "#d4edda",
-                      marginTop: "0px",
-                    }}
-                  >
-                    <Card.Body>
-                      <FaBox size={30} />{" "}
-                      {/* Ajustement de la taille de l'icône */}
-                      <Card.Title>Produits en stock</Card.Title>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                {/* Section Messages */}
-                <Col xs={12} sm={6} md={6} className="text-center">
-                  <Card
-                    onClick={() => handleShowModal("messages")}
-                    className="shadow-sm"
-                    style={{
-                      cursor: "pointer",
-                      backgroundColor: "#f8d7da",
-                    }}
-                  >
-                    <Card.Body>
-                      <FaEnvelope size={30} />
-                      <Card.Title>Messages</Card.Title>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                {/* Section Sponsors */}
-                <Col xs={12} sm={6} md={6} className="text-center">
-                  <Card
-                    onClick={() => handleShowModal("sponsors")}
-                    className="shadow-sm"
-                    style={{
-                      cursor: "pointer",
-                      backgroundColor: "#cce5ff",
-                    }}
-                  >
-                    <Card.Body>
-                      <FaUserTie size={30} />
-                      <Card.Title>Sponsors</Card.Title>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                {/* Section Membres */}
-                <Col xs={12} sm={6} md={6} className="text-center">
-                  <Card
-                    onClick={() => handleShowModal("members")}
-                    className="shadow-sm"
-                    style={{
-                      cursor: "pointer",
-                      backgroundColor: "#fff3cd",
-                    }}
-                  >
-                    <Card.Body>
-                      <FaUsers size={30} />
-                      <Card.Title>Membres</Card.Title>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              </Row>
-
-              {/* Modal */}
-              <Modal show={showModal} onHide={handleCloseModal} centered>
-                <Modal.Header closeButton>
-                  <Modal.Title>
-                    {activeSection === "produits" && (
-                      <>
-                        <FaBox size={20} /> Produits en stock
-                      </>
-                    )}
-                    {activeSection === "messages" && (
-                      <>
-                        <FaEnvelope size={20} /> Messages
-                      </>
-                    )}
-                    {activeSection === "sponsors" && (
-                      <>
-                        <FaUserTie size={20} /> Sponsors
-                      </>
-                    )}
-                    {activeSection === "members" && (
-                      <>
-                        <FaUsers size={20} /> Membres
-                      </>
-                    )}
-                  </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
+            {/* Modal */}
+            <Modal show={showModal} onHide={handleCloseModal} centered>
+              <Modal.Header closeButton>
+                <Modal.Title>
                   {activeSection === "produits" && (
-                    <div>
-                      <p>📦 Produits en stock</p>
-                      {products.length > 0 ? (
-                        products.map((product, index) => (
-                          <div key={index}>
-                            <p>
-                              🏷️ {product.name} - {product.price} €
-                            </p>
-                          </div>
-                        ))
-                      ) : (
-                        <p>Aucun produit en stock</p>
-                      )}
-                    </div>
+                    <>
+                      <FaBox size={20} /> Produits en stock
+                    </>
                   )}
-
                   {activeSection === "messages" && (
-                    <div>
-                      <p>✉ Messages</p>
-                      {messages.length > 0 ? (
-                        messages.map((message, index) => (
-                          <div key={index}>
-                            <p>📨 {message.content}</p>
-                          </div>
-                        ))
-                      ) : (
-                        <p>Aucun message</p>
-                      )}
-                    </div>
+                    <>
+                      <FaEnvelope size={20} /> Messages
+                    </>
                   )}
-
                   {activeSection === "sponsors" && (
-                    <div>
-                      <p>🏷️ Sponsors</p>
-                      {sponsors.length > 0 ? (
-                        sponsors.map((sponsor, index) => (
-                          <div key={index}>
-                            <p>{sponsor.name}</p>
-                          </div>
-                        ))
-                      ) : (
-                        <p>🥇 Aucun sponsor</p>
-                      )}
-                    </div>
+                    <>
+                      <FaUserTie size={20} /> Sponsors
+                    </>
                   )}
-
                   {activeSection === "members" && (
-                    <div>
-                      <p>♠ Membres</p>
-                      {members.length > 0 ? (
-                        members.map((member, index) => (
-                          <div key={index}>
-                            <p>🎫 {member.name}</p>
-                          </div>
-                        ))
-                      ) : (
-                        <p>Aucun membre</p>
-                      )}
-                    </div>
+                    <>
+                      <FaUsers size={20} /> Membres
+                    </>
                   )}
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleCloseModal}>
-                    ❌ Fermer
-                  </Button>
-                </Modal.Footer>
-              </Modal>
-            </>
-          )}
-        </Container>
-      </div>
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {activeSection === "produits" && (
+                  <div>
+                    <p>📦 Produits en stock</p>
+                    {products.length > 0 ? (
+                      products.map((product, index) => (
+                        <div key={index}>
+                          <p>
+                            🏷️ {product.name} - {product.price} €
+                          </p>
+                        </div>
+                      ))
+                    ) : (
+                      <p>Aucun produit en stock</p>
+                    )}
+                  </div>
+                )}
+
+                {activeSection === "messages" && (
+                  <div>
+                    <p>✉ Messages</p>
+                    {messages.length > 0 ? (
+                      messages.map((message, index) => (
+                        <div key={index}>
+                          <p>📨 {message.content}</p>
+                        </div>
+                      ))
+                    ) : (
+                      <p>Aucun message</p>
+                    )}
+                  </div>
+                )}
+
+                {activeSection === "sponsors" && (
+                  <div>
+                    <p>🏷️ Sponsors</p>
+                    {sponsors.length > 0 ? (
+                      sponsors.map((sponsor, index) => (
+                        <div key={index}>
+                          <p>{sponsor.name}</p>
+                        </div>
+                      ))
+                    ) : (
+                      <p>🥇 Aucun sponsor</p>
+                    )}
+                  </div>
+                )}
+
+                {activeSection === "members" && (
+                  <div>
+                    <p>♠ Membres</p>
+                    {members.length > 0 ? (
+                      members.map((member, index) => (
+                        <div key={index}>
+                          <p>🎫 {member.name}</p>
+                        </div>
+                      ))
+                    ) : (
+                      <p>Aucun membre</p>
+                    )}
+                  </div>
+                )}
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleCloseModal}>
+                  ❌ Fermer
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </>
+        )}
+      </Container>
+
+      <button
+        onClick={() => navigate("/")}
+        className="btn"
+        style={{
+          backgroundColor: "#00BFFF",
+          color: "#fff",
+          fontWeight: "bold",
+          borderRadius: "30px",
+          padding: "10px 30px",
+          position: "absolute",
+          bottom: "75px",
+        }}
+      >
+        Accéder aux Services
+      </button>
     </div>
   );
 };
