@@ -156,6 +156,16 @@ const Navbar = () => {
               {/* Avatar */}
               <div className="avatar">{initials}</div>
 
+              {/* Affichage du rôle */}
+              <div className="role-display ms-2">
+                <span
+                  style={{ marginLeft: "-235px", marginBottom: "25px" }}
+                  className="badge bg-info text-dark"
+                >
+                  🛡️{role}
+                </span>
+              </div>
+
               {/* Déconnexion */}
               <button
                 style={{ marginBottom: "55px" }}
