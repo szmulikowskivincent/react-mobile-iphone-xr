@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { FaWhatsapp } from "react-icons/fa"; 
+import { useNavigate } from "react-router-dom";
+import UserNavigation from "./navigation/UserNavigation";
 
-const ProfileEntreprise = () => {
+const Profile = () => {
+  const navigate = useNavigate();
   const [profile, setProfile] = useState({
     companyName: "",
     description: "",
@@ -66,47 +68,35 @@ const ProfileEntreprise = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "100vh",
+        minHeight: "50vh",
         padding: "20px",
         backgroundColor: "#f8f9fa",
       }}
     >
-      {/* WhatsApp Icon */}
-      <div
-        style={{
-          position: "absolute",
-          top: "20px",
-          right: "40px",
-          cursor: "pointer",
-          fontSize: "30px",
-          color: "green",
-        }}
-        onClick={() => window.open("https://wa.me/+32492837658", "_blank")}
-      >
-        <FaWhatsapp />
-      </div>
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          width: "390px",
-          height: "880px",
+          width: "360px",
+          height: "830px",
           backgroundColor: "#fff",
           padding: "20px",
           border: "9px solid black",
           borderRadius: "20px",
           overflow: "hidden",
+          boxShadow: "0 0 20px 5px rgba(0, 176, 240, 0.8)",
         }}
       >
-        <div style={{ marginBottom: "150px" }} className="text-center mb-3">
+        <div className="text-center mb-3">
           <img
             src="/logo_ZakUp_v1.webp"
             alt="Logo"
             style={{ width: "200px", height: "auto" }}
           />
         </div>
+        <UserNavigation />
         <div className="text-center mb-3">
           <img
             src={
@@ -118,9 +108,6 @@ const ProfileEntreprise = () => {
             alt="Profil"
           />
         </div>
-        <p className="text-center mb-3">
-          <i className="bi bi-building text-primary"></i>  Profil Entreprise
-        </p>
         <form onSubmit={handleSave}>
           {["companyName", "description", "address", "phone", "email"].map(
             (name, index) => (
@@ -179,13 +166,33 @@ const ProfileEntreprise = () => {
               accept="image/*"
             />
           </div>
-          <button type="submit" className="btn btn-primary w-100">
+          <button
+            style={{ marginTop: "25px" }}
+            type="submit"
+            className="btn btn-info w-100"
+          >
             <i className="bi bi-save"></i> Sauvegarder
           </button>
         </form>
       </div>
+      <button
+        onClick={() => navigate("/")}
+        className="btn"
+        style={{
+          backgroundColor: "#00BFFF",
+          marginTop: "100px",
+          color: "#fff",
+          fontWeight: "bold",
+          borderRadius: "30px",
+          padding: "10px 30px",
+          position: "absolute",
+          marginTop: "735px",
+        }}
+      >
+        Accéder aux Services
+      </button>
     </div>
   );
 };
 
-export default ProfileEntreprise;
+export default Profile;

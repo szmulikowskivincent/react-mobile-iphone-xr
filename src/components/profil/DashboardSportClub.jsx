@@ -18,41 +18,10 @@ import {
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-
-const sections = [
-  {
-    title: "Événements",
-    icon: <FaCalendarAlt size={40} />,
-    color: "primary",
-    details: "Détails des événements du club...",
-  },
-  {
-    title: "Membres",
-    icon: <FaUserFriends size={40} />,
-    color: "warning",
-    details: "Liste des membres et leurs informations...",
-  },
-  {
-    title: "Récompenses",
-    icon: <FaTrophy size={40} />,
-    color: "danger",
-    details: "Historique des récompenses du club...",
-  },
-  {
-    title: "Documents",
-    icon: <FaFileAlt size={40} />,
-    color: "info",
-    details: (
-      <div>
-        <p>Document d'adhésion</p>
-        <p>Documents des événements</p>
-        <p>Documents des sponsors</p>
-      </div>
-    ),
-  },
-];
+import { useNavigate } from "react-router-dom";
 
 const DashboardSportClub = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [activeSection, setActiveSection] = useState(null);
@@ -61,7 +30,7 @@ const DashboardSportClub = () => {
   const [events, setEvents] = useState([
     { name: "Barbecue", date: "2025-03-09", seats: 0, price: 12 },
   ]);
-  const [, setTotalSeats] = useState(0);
+  const [totalSeats, setTotalSeats] = useState(0);
 
   useEffect(() => {
     const storedEvents = localStorage.getItem("events");
@@ -97,13 +66,11 @@ const DashboardSportClub = () => {
 
   const generatePDF = () => {
     const doc = new jsPDF();
-
     doc.setFontSize(12);
     if (clubProfile.clubName) {
       doc.text(`Club: ${clubProfile.clubName}`, 195, 20, { align: "right" });
     }
 
-    doc.setLineWidth(0.5);
     const eventData = stats.map((stat) => [
       stat.eventName,
       stat.date,
@@ -117,14 +84,6 @@ const DashboardSportClub = () => {
       startY: 40,
     });
 
-    doc.setLineWidth(0.5);
-    doc.line(
-      20,
-      doc.autoTable.previous.finalY + 50,
-      200,
-      doc.autoTable.previous.finalY + 50
-    );
-
     const currentDate = new Date().toLocaleDateString();
     doc.text(`Date: ${currentDate}`, 20, doc.autoTable.previous.finalY + 70);
     doc.text(
@@ -136,6 +95,39 @@ const DashboardSportClub = () => {
     doc.save("events_statistiques.pdf");
   };
 
+  const sections = [
+    {
+      title: "Événements",
+      icon: <FaCalendarAlt size={40} />,
+      color: "primary",
+      details: "Détails des événements du club...",
+    },
+    {
+      title: "Membres",
+      icon: <FaUserFriends size={40} />,
+      color: "warning",
+      details: "Liste des membres et leurs informations...",
+    },
+    {
+      title: "Récompenses",
+      icon: <FaTrophy size={40} />,
+      color: "danger",
+      details: "Historique des récompenses du club...",
+    },
+    {
+      title: "Documents",
+      icon: <FaFileAlt size={40} />,
+      color: "info",
+      details: (
+        <div>
+          <p>Document d'adhésion</p>
+          <p>Documents des événements</p>
+          <p>Documents des sponsors</p>
+        </div>
+      ),
+    },
+  ];
+
   return (
     <div
       style={{
@@ -143,8 +135,8 @@ const DashboardSportClub = () => {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        width: "390px",
-        height: "880px",
+        width: "355px",
+        height: "815px",
         margin: "0 auto",
         backgroundColor: "#fff",
         overflow: "auto",
@@ -152,20 +144,15 @@ const DashboardSportClub = () => {
         border: "9px solid black",
         borderRadius: "20px",
         position: "relative",
-        boxShadow: "0 0 20px 5px rgba(0, 255, 0, 0.3)",
+        boxShadow: "0 0 20px 5px rgba(0, 176, 240, 0.8)",
       }}
     >
       <Container fluid className="p-3" style={{ maxHeight: "100%" }}>
         <img
           src="/logo_ZakUp_v1.webp"
           alt="Logo"
-          className="d-flex justify-content-center"
-          style={{
-            width: "200px",
-            height: "auto",
-            margin: "0 auto",
-            marginBottom: "0px",
-          }}
+          className="d-block mx-auto"
+          style={{ width: "200px", height: "auto", marginBottom: "0px" }}
         />
 
         <p className="text-center mb-4" style={{ fontSize: "18px" }}>
@@ -189,7 +176,7 @@ const DashboardSportClub = () => {
                     style={{
                       cursor: "pointer",
                       width: "85%",
-                      marginLeft: "25px",
+                      margin: "0 auto",
                     }}
                   >
                     <Card.Body>
@@ -211,10 +198,7 @@ const DashboardSportClub = () => {
             </Button>
 
             <div className="mt-5">
-              <p className="text-center">
-                <i className="bi bi-graph-up-arrow me-2"></i> Statistiques des
-                Événements
-              </p>
+              <p className="text-center">📊 Statistiques des Événements</p>
 
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
@@ -223,7 +207,7 @@ const DashboardSportClub = () => {
                     dataKey="seats"
                     nameKey="name"
                     cx="50%"
-                    cy="20%"
+                    cy="50%"
                     outerRadius={60}
                     fill="#8884d8"
                     label
@@ -240,19 +224,33 @@ const DashboardSportClub = () => {
               </ResponsiveContainer>
             </div>
 
-            {/* Modal */}
+            <button
+              onClick={() => navigate("/")}
+              className="btn"
+              style={{
+                backgroundColor: "#00BFFF",
+                color: "#fff",
+                fontWeight: "bold",
+                borderRadius: "30px",
+                padding: "10px 30px",
+                position: "absolute",
+                bottom: "40px",
+                marginLeft: "30px",
+              }}
+            >
+              Accéder aux Services
+            </button>
+
             <Modal
+              style={{ marginLeft: "0px" }}
               show={showModal}
               onHide={handleCloseModal}
               centered
-              dialogClassName="modal-dialog-centered"
             >
               <Modal.Header closeButton>
                 <Modal.Title>{activeSection?.title}</Modal.Title>
               </Modal.Header>
-              <Modal.Body>
-                <div>{activeSection?.details}</div>
-              </Modal.Body>
+              <Modal.Body>{activeSection?.details}</Modal.Body>
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleCloseModal}>
                   Fermer

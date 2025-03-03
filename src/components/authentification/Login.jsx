@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { FaEnvelope, FaLock, FaWhatsapp } from "react-icons/fa";
+import { FaEnvelope, FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import UserNavigation from "../navigation/UserNavigation";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -13,200 +14,147 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const savedStatus = localStorage.getItem("userStatus");
-    if (savedStatus === "club") {
-      navigate("/club");
-    }
+    if (localStorage.getItem("userStatus") === "club") navigate("/club");
   }, [navigate]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (
       formData.status === "admin" &&
       formData.email !== "marie.admin@gmail.com"
     ) {
-      setErrorMessage("Désolé, mais vous n'avez pas accès en tant que ADMIN");
+      setErrorMessage("Vous n'avez pas accès en tant qu'ADMIN");
       return;
     }
-
     try {
-      const response = await axios.post(
+      const { data } = await axios.post(
         "http://localhost:5000/login",
         formData
       );
-
-      console.log(response.data);
-
-      if (response.data && response.data.message === "Connexion réussie") {
+      if (data?.message === "Connexion réussie") {
         localStorage.setItem("userEmail", formData.email);
         localStorage.setItem("userStatus", formData.status);
-
-        const sessionToken = btoa(formData.email);
-        sessionStorage.setItem("authToken", sessionToken);
-
-        if (formData.email === "marie.admin@gmail.com") {
-          navigate("/database");
-        } else if (formData.status === "club") {
-          navigate("/club");
-        } else if (formData.status === "sponsor") {
-          navigate("/sponsor");
-        } else {
-          navigate("/sponsor");
-        }
+        sessionStorage.setItem("authToken", btoa(formData.email));
+        navigate(
+          formData.status === "club"
+            ? "/club"
+            : formData.status === "sponsor"
+            ? "/sponsor"
+            : "/database"
+        );
       } else {
         setErrorMessage("Erreur de connexion. Essayez à nouveau.");
       }
     } catch (error) {
-      console.log(error);
-      setErrorMessage(
-        error.response ? error.response.data.message : "Erreur de connexion"
-      );
+      setErrorMessage(error.response?.data.message || "Erreur de connexion");
     }
-  };
-
-  const isFormValid = formData.email && formData.password;
-
-  const handleWhatsappClick = () => {
-    window.open("https://wa.me/+32492837658", "_blank");
   };
 
   return (
     <div
+      className="d-flex flex-column align-items-center p-4"
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        width: "410px",
-        height: "885px",
+        width: "375px",
+        height: "835px",
         margin: "0 auto",
         backgroundColor: "#fff",
-        overflow: "hidden",
-        padding: "20px",
         border: "9px solid black",
         borderRadius: "20px",
-        boxShadow: "0 0 20px 5px rgba(0, 255, 0, 0.3)",
+        boxShadow: "0 0 20px 5px rgba(0, 176, 240, 0.8)",
       }}
     >
-      {/* WhatsApp Icon */}
+      <img
+        src="/logo_ZakUp_v1.webp"
+        alt="Logo"
+        style={{ width: "180px", borderRadius: "10px", marginTop: "50px" }}
+      />
+      <UserNavigation />
       <div
+        className="card p-4"
         style={{
-          position: "absolute",
-          top: "20px",
-          right: "40px",
-          cursor: "pointer",
-          fontSize: "30px",
-          color: "green",
-        }}
-        onClick={handleWhatsappClick}
-      >
-        <FaWhatsapp />
-      </div>
-
-      {/* Logo centré */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "50px",
+          maxWidth: "375px",
+          width: "100%",
+          marginTop: "0px",
+          borderRadius: "15px",
+          border: "transparent",
         }}
       >
-        <img
-          src="/logo_ZakUp_v1.webp"
-          alt="Logo"
-          style={{
-            width: "180px",
-            height: "auto",
-            borderRadius: "10px",
-          }}
-        />
-      </div>
-
-      <div className="d-flex justify-content-center align-items-center flex-grow-1">
-        <div
-          className="card p-4 p-sm-5"
-          style={{
-            maxWidth: "375px",
-            width: "100%",
-            marginTop: "-120px",
-            border: "transparent",
-            borderRadius: "15px",
-          }}
-        >
-          <h2 className="text-center mb-4">
-            <i className="bi bi-box-arrow-in-right"></i> Login
-          </h2>
-
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3 input-group">
-              <div className="input-group-text">
-                <FaEnvelope />
-              </div>
-              <input
-                type="email"
-                name="email"
-                className="form-control"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
+        <h2 className="text-center mb-4">Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3 input-group">
+            <div className="input-group-text">
+              <FaEnvelope />
             </div>
-            <div className="mb-3 input-group">
-              <div className="input-group-text">
-                <FaLock />
-              </div>
-              <input
-                type="password"
-                name="password"
-                className="form-control"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
+            <input
+              type="email"
+              name="email"
+              className="form-control"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-3 input-group">
+            <div className="input-group-text">
+              <FaLock />
             </div>
-            <div className="mb-3">
-              <select
-                name="status"
-                id="status"
-                className="form-select"
-                value={formData.status}
-                onChange={handleChange}
-              >
-                <option value="sponsor">Sponsor</option>
-                <option value="admin">Admin</option>
-                <option value="club">Club</option>
-              </select>
-            </div>
-
-            {errorMessage && (
-              <p
-                style={{ fontSize: "12px" }}
-                className="text-danger text-center"
-              >
-                {errorMessage}
-              </p>
-            )}
-
-            <button
-              type="submit"
-              className="btn btn-primary w-100"
-              disabled={!isFormValid}
+            <input
+              type="password"
+              name="password"
+              className="form-control"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <select
+              name="status"
+              className="form-select"
+              value={formData.status}
+              onChange={handleChange}
             >
-              <i className="bi bi-box-arrow-in-right"></i> Login
-            </button>
-          </form>
-        </div>
+              <option value="sponsor">Sponsor</option>
+              <option value="admin">Admin</option>
+              <option value="club">Club</option>
+            </select>
+          </div>
+          {errorMessage && (
+            <p className="text-danger text-center" style={{ fontSize: "12px" }}>
+              {errorMessage}
+            </p>
+          )}
+          <button
+            type="submit"
+            className="btn btn-info w-100"
+            disabled={!formData.email || !formData.password}
+          >
+            Login
+          </button>
+        </form>
       </div>
+
+      <button
+        onClick={() => navigate("/")}
+        className="btn"
+        style={{
+          backgroundColor: "#00BFFF",
+          color: "#fff",
+          fontWeight: "bold",
+          borderRadius: "30px",
+          padding: "10px 30px",
+          position: "absolute",
+          bottom: "115px",
+        }}
+      >
+        Accéder aux Services
+      </button>
     </div>
   );
 };
-
 export default Login;

@@ -29,28 +29,28 @@
 
 .avatar {
     position: absolute;
-    inset-block-start: 360px;
-    inset-inline-end: 140px;
-    inline-size: 70px;
-    block-size: 70px;
+    inset-block-start: 50px;
+    inset-inline-end: 150px;
+    inline-size: 50px;
+    block-size: 50px;
     background-color: transparent;
     color: rgb(66, 233, 233);
     font-weight: bold;
-    font-size: 50px;
+    font-size: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: transparent;
 }
 
 .btn-logout {
     position: fixed;
-    inset-block-end: 90px;
+    inset-block-end: 150px;
     inset-inline-start: 50%;
     transform: translateX(-50%);
     inline-size: 90%;
-    max-inline-size: 300px;
+    max-inline-size: 230px;
     padding: 10px;
     text-align: center;
     border-radius: 25px;

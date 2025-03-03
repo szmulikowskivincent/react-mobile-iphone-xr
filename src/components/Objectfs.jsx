@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../css/About.css";
+import "../css/Objectifs.css";
 
 const AboutCard = ({ icon, title, text, className }) => (
   <div className="about-card">
@@ -10,7 +10,7 @@ const AboutCard = ({ icon, title, text, className }) => (
   </div>
 );
 
-const About = () => {
+const Objectifs = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
 
@@ -31,42 +31,23 @@ const About = () => {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        width: "390px",
-        height: "880px",
+        width: "355px",
+        height: "815px",
         margin: "0 auto",
         backgroundColor: "#fff",
         overflow: "hidden",
         padding: "0px",
         border: "9px solid black",
         borderRadius: "20px",
-        boxShadow: "0 0 20px 5px rgba(0, 255, 0, 0.3)",
+        boxShadow: "0 0 20px 5px rgba(0, 176, 240, 0.8)",
       }}
     >
-      {/* Logo centré */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "-95px",
-        }}
-      >
-        <img
-          src="/logo_ZakUp_v1.webp"
-          alt="Logo"
-          style={{
-            width: "150px",
-            height: "auto", 
-            borderRadius: "10px", 
-          }}
-        />
-      </div>
-
-      <div className="about-container">
+      <div style={{ marginTop: "-50px" }} className="about-container">
         <div className="white-box">
           <div className="about-header text-center">
             <br /> <br /> <br />
             <p>
-              <i className="bi bi-info-circle-fill text-primary"></i>  À propos
+              <i className="bi bi-info-circle-fill text-primary"></i> À propos
               de nous
             </p>
           </div>
@@ -96,7 +77,7 @@ const About = () => {
 
           <div className="faq-section">
             <p>
-              <i className="bi bi-question-circle-fill text-primary"></i> 
+              <i className="bi bi-question-circle-fill text-primary"></i>
               Foire aux questions (FAQ)
             </p>
             <div className="list-group">
@@ -108,17 +89,13 @@ const About = () => {
               </button>
               <button
                 className="list-group-item"
-                onClick={() =>
-                  openModal("Services offerts aux acheteurs ?")
-                }
+                onClick={() => openModal("Services offerts aux acheteurs ?")}
               >
                 Services offerts aux acheteurs?
               </button>
               <button
                 className="list-group-item"
-                onClick={() =>
-                  openModal("La sécutité des transactions ?")
-                }
+                onClick={() => openModal("La sécurité des transactions ?")}
               >
                 Sécurité des transactions?
               </button>
@@ -169,4 +146,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default Objectifs;

@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/DashboardVenteAchat.css";
-import Like from "../components/Like";
 
-const DashboardVenteAchat = () => {
+const Store = () => {
   const [products, setProducts] = useState([]);
   const [currentPageProduct, setCurrentPageProduct] = useState(1);
   const [productsPerPage] = useState(1);
@@ -12,7 +11,7 @@ const DashboardVenteAchat = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [hoveredProduct, setHoveredProduct] = useState(null);
-  const [modalImage, setModalImage] = useState(null);
+  const [setModalImage] = useState(null);
   const [showPaymentToast, setShowPaymentToast] = useState(false);
 
   const navigate = useNavigate();
@@ -42,7 +41,7 @@ const DashboardVenteAchat = () => {
 
   const calculateTotal = () => {
     const total = cart.reduce((acc, item) => acc + item.price, 0);
-    return (total * 1.05).toFixed(2); 
+    return (total * 1.05).toFixed(2);
   };
 
   const handlePayment = () => {
@@ -60,19 +59,17 @@ const DashboardVenteAchat = () => {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        width: "390px",
-        height: "880px",
+        width: "350px",
+        height: "810px",
         margin: "0 auto",
         backgroundColor: "#fff",
         overflow: "hidden",
         padding: "20px",
-        border: "9px solid black",
         borderRadius: "20px",
         position: "relative",
-        boxShadow: "0 0 20px 5px rgba(0, 255, 0, 0.3)",
+        boxShadow: "0 0 20px 5px rgba(0, 176, 240, 0.8)",
       }}
     >
-      {/* Icône Panier */}
       <div style={{ position: "absolute", top: "10px", left: "10px" }}>
         <i className="bi bi-cart-fill" style={{ fontSize: "24px" }}></i>
         {cart.length > 0 && (
@@ -90,8 +87,6 @@ const DashboardVenteAchat = () => {
           </span>
         )}
       </div>
-
-      {/* Icône Paiement */}
       {cart.length > 0 && (
         <div style={{ position: "absolute", top: "10px", right: "10px" }}>
           <i
@@ -113,10 +108,9 @@ const DashboardVenteAchat = () => {
           </span>
         </div>
       )}
-
       {showToast && (
         <div
-          className="toast show position-fixed text-white bg-danger p-3 rounded"
+          className="toast show position-fixed text-white p-3 rounded"
           style={{
             zIndex: 1050,
             bottom: "100px",
@@ -124,15 +118,15 @@ const DashboardVenteAchat = () => {
             width: "255px",
             opacity: 0.8,
             transform: "translate(18px, 32px)",
+            backgroundColor: "#90EE90",
           }}
         >
           {toastMessage}
         </div>
       )}
-
       {showPaymentToast && (
         <div
-          className="toast show position-fixed text-white bg-success p-3 rounded"
+          className="toast show position-fixed text-white p-3 rounded"
           style={{
             zIndex: 1050,
             bottom: "100px",
@@ -140,14 +134,14 @@ const DashboardVenteAchat = () => {
             width: "255px",
             opacity: 0.8,
             transform: "translate(18px, 32px)",
+            backgroundColor: "#90EE90",
           }}
         >
           Redirection vers le paiement...
         </div>
       )}
-
       <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "0px" }}
+        style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}
       >
         <img
           src="/logo_ZakUp_v1.webp"
@@ -155,7 +149,6 @@ const DashboardVenteAchat = () => {
           style={{ width: "200px", height: "auto" }}
         />
       </div>
-
       <div className="row">
         {currentProducts.map((product) => (
           <div key={product.id} className="col-12 mb-3">
@@ -164,7 +157,7 @@ const DashboardVenteAchat = () => {
               style={{
                 fontSize: "0.9rem",
                 border: "none",
-                backgroundColor: "transparent",
+                backgroundColor: "#fff",
               }}
             >
               <img
@@ -183,19 +176,18 @@ const DashboardVenteAchat = () => {
                 onMouseLeave={() => setHoveredProduct(null)}
                 onClick={() => setModalImage(product.image)}
               />
-              <br />
               <div className="card-body">
                 <p className="card-title">
                   <i className="bi bi-gift"></i> {product.name}
                 </p>
                 <p className="card-text" style={{ fontSize: "0.8rem" }}>
-                  📌{" "}
+                  {" "}
                   {product.description.length > 50
                     ? product.description.substring(0, 50) + "..."
                     : product.description}
                 </p>
                 <p className="card-text">
-                  <strong>📌 Prix:</strong> {product.price} €
+                  <strong> Prix:</strong> {product.price} €
                 </p>
                 <span
                   className="badge bg-success p-1"
@@ -203,9 +195,12 @@ const DashboardVenteAchat = () => {
                 >
                   Produit
                 </span>
+                <br />
+                <br />
                 <div className="mt-2">
                   <button
-                    className="btn btn-primary btn-sm"
+                    className="btn btn-sm"
+                    style={{ backgroundColor: "#00BFFF", color: "white" }}
                     onClick={() => addToCart(product)}
                   >
                     🗑️ Ajouter au panier
@@ -217,12 +212,13 @@ const DashboardVenteAchat = () => {
         ))}
       </div>
       <br />
-
-      <div style={{ marginTop: "50px" }} className="pagination">
+      <br />
+      <div style={{ marginTop: "40px" }} className="pagination">
         <button
           className="btn btn-secondary btn-sm me-2"
           onClick={() => setCurrentPageProduct((prev) => Math.max(prev - 1, 1))}
           disabled={currentPageProduct === 1}
+          style={{ backgroundColor: "rgba(108, 117, 125, 0.6)", color: "#fff" }}
         >
           Précédent
         </button>
@@ -237,12 +233,13 @@ const DashboardVenteAchat = () => {
           disabled={
             currentPageProduct === Math.ceil(products.length / productsPerPage)
           }
+          style={{ backgroundColor: "rgba(108, 117, 125, 0.6)", color: "#fff" }}
         >
           Suivant
         </button>
       </div>
       <br />
-
+      <br /> <br />
       <button
         onClick={() => navigate("/")}
         className="btn"
@@ -253,14 +250,13 @@ const DashboardVenteAchat = () => {
           borderRadius: "30px",
           padding: "10px 30px",
           position: "absolute",
-          bottom: "115px",
+          bottom: "100px",
         }}
       >
         Accéder aux Services
       </button>
-      <Like />
     </div>
   );
 };
 
-export default DashboardVenteAchat;
+export default Store;

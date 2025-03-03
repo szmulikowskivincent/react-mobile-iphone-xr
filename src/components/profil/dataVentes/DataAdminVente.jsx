@@ -85,7 +85,6 @@ const DataBase = () => {
         zIndex: 999,
       }}
     >
-      {/* Compteurs pour les ventes de sponsors et produits */}
       <div className="row mb-4">
         <div
           className="col-6"
@@ -141,7 +140,6 @@ const DataBase = () => {
         </div>
       </div>
 
-      {/* Graphique */}
       <ResponsiveContainer
         style={{
           position: "absolute",
@@ -162,7 +160,6 @@ const DataBase = () => {
             <LabelList dataKey="sales" position="top" />
           </Bar>
 
-          {/* Ligne de référence représentant le ratio à atteindre */}
           <ReferenceLine
             y={targetRatio}
             label="Cible"

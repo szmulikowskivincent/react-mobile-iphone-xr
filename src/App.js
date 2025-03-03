@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -12,18 +7,17 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import Register from "./components/authentification/Register";
 import Login from "./components/authentification/Login";
 
-import Services from "./components/Services";
-import About from "./components/About";
-import DashboardVenteAchat from "./components/DashboardVenteAchat";
-import ServicesOffresPayment from "./components/paiements/ServicesOffresPayment";
+import Abonnements from "./components/Abonnements.jsx";
+import Store from "./components/Store";
+import Offres from "./components/paiements/Offres";
 import PaymentConsole from "./components/paiements/PaymentConsole";
+import Objectifs from "./components/Objectfs.jsx";
 
-import ProfileEntreprise from "./components/ProfileEntreprise";
-import DashboardSponsores from "./components/DashboardSponsores";
-import ContactSponsor from "./components/ContactSponsor";
+import Profile from "./components/Profile";
+import AjouterUnProduit from "./components/AjouterUnProduit";
+import Contact from "./components/Contact.jsx";
 
 import Cover from "./components/Cover";
-import PaginationRouter from "./components/navigation/PaginationRouter";
 
 import DashboardSponsor from "./components/profil/DashboardSponsor";
 import DashboardSportClub from "./components/profil/DashboardSportClub";
@@ -36,48 +30,22 @@ function App() {
         <Route path="/" element={<Cover />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/abonnement" element={<Services />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/profile" element={<ProfileEntreprise />} />
-        <Route path="/dashboard" element={<DashboardSponsores />} />
-        <Route path="/offres" element={<ServicesOffresPayment />} />
+        <Route path="/abonnement" element={<Abonnements />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/ajouterProduit" element={<AjouterUnProduit />} />
+        <Route path="/offres" element={<Offres />} />
         <Route path="/paiement" element={<PaymentConsole />} />
+        <Route path="/objectifs" element={<Objectifs />} />
 
         <Route path="/sponsor" element={<DashboardSponsor />} />
         <Route path="/club" element={<DashboardSportClub />} />
         <Route path="/database" element={<DashboardAdmin />} />
 
-        <Route
-          path="/dashboard-vente-achat"
-          element={<DashboardVenteAchat />}
-        />
-        <Route path="/contact" element={<ContactSponsor />} />
+        <Route path="/store" element={<Store />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
-      <Pagination />
     </Router>
   );
-}
-
-function Pagination() {
-  const location = useLocation();
-
-  if (location.pathname === "/dashboard-vente-achat") {
-    return null;
-  }
-
-  if (location.pathname === "/" || location.pathname === "/cover") {
-    return null;
-  }
-
-  if (location.pathname === "/" || location.pathname === "/paiement") {
-    return null;
-  }
-
-  if (location.pathname === "/" || location.pathname === "/offres") {
-    return null;
-  }
-
-  return <PaginationRouter />;
 }
 
 export default App;

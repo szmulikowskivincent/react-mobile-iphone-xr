@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import DataAdminVente from "../profil/dataVentes/DataAdminVente";
 import { FaUserShield } from "react-icons/fa";
 import {
   Container,
@@ -69,8 +68,8 @@ const DashboardAdmin = () => {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        width: "380px",
-        height: "875px",
+        width: "355px",
+        height: "815px",
         maxWidth: "390px",
         margin: "0 auto",
         backgroundColor: "#fff",
@@ -79,7 +78,7 @@ const DashboardAdmin = () => {
         border: "9px solid black",
         borderRadius: "20px",
         position: "relative",
-        boxShadow: "0 0 20px 5px rgba(0, 255, 0, 0.3)",
+        boxShadow: "0 0 20px 5px rgba(0, 176, 240, 0.8)",
       }}
     >
       <Container fluid className="p-3">
@@ -99,11 +98,9 @@ const DashboardAdmin = () => {
           }}
         />
 
-        <DataAdminVente />
-
         <p
           className="text-center mb-4"
-          style={{ fontSize: "16px", marginTop: "150px" }}
+          style={{ fontSize: "16px", marginTop: "0px" }}
         >
           <FaUserShield
             size={20}
@@ -121,7 +118,6 @@ const DashboardAdmin = () => {
         ) : (
           <>
             <Row className="g-2">
-              {/* Section Produits */}
               <Col xs={12} sm={6} md={6} className="text-center">
                 <Card
                   onClick={() => handleShowModal("produits")}
@@ -138,7 +134,6 @@ const DashboardAdmin = () => {
                   </Card.Body>
                 </Card>
               </Col>
-              {/* Section Messages */}
               <Col xs={12} sm={6} md={6} className="text-center">
                 <Card
                   onClick={() => handleShowModal("messages")}
@@ -154,7 +149,6 @@ const DashboardAdmin = () => {
                   </Card.Body>
                 </Card>
               </Col>
-              {/* Section Sponsors */}
               <Col xs={12} sm={6} md={6} className="text-center">
                 <Card
                   onClick={() => handleShowModal("sponsors")}
@@ -170,7 +164,6 @@ const DashboardAdmin = () => {
                   </Card.Body>
                 </Card>
               </Col>
-              {/* Section Membres */}
               <Col xs={12} sm={6} md={6} className="text-center">
                 <Card
                   onClick={() => handleShowModal("members")}
@@ -188,8 +181,12 @@ const DashboardAdmin = () => {
               </Col>
             </Row>
 
-            {/* Modal */}
-            <Modal show={showModal} onHide={handleCloseModal} centered>
+            <Modal
+              style={{ marginLeft: "20px", backgroundColor: "transparent" }}
+              show={showModal}
+              onHide={handleCloseModal}
+              centered
+            >
               <Modal.Header closeButton>
                 <Modal.Title>
                   {activeSection === "produits" && (
@@ -247,7 +244,6 @@ const DashboardAdmin = () => {
                   </div>
                 )}
 
-                {/* Section Messages */}
                 {activeSection === "messages" && (
                   <div>
                     <p>✉ Messages</p>
@@ -282,7 +278,6 @@ const DashboardAdmin = () => {
                   </div>
                 )}
 
-                {/* Section Sponsors */}
                 {activeSection === "sponsors" && (
                   <div>
                     <p>🏆 Sponsors</p>

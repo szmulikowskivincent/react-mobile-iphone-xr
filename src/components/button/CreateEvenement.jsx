@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Card, Button, Form } from "react-bootstrap";
+import { Container, Card, Button, Form, Alert } from "react-bootstrap";
 
 const DashboardSportClub = () => {
   const [events, setEvents] = useState([]);
@@ -9,6 +9,8 @@ const DashboardSportClub = () => {
     seats: "",
     price: "",
   });
+  const [error, setError] = useState("");
+  const [showEvents, setShowEvents] = useState(true);
 
   useEffect(() => {
     const storedEvents = JSON.parse(localStorage.getItem("events")) || [];
@@ -28,7 +30,12 @@ const DashboardSportClub = () => {
     const { name, date, seats, price } = eventData;
 
     if (!name || !date || !seats || !price) {
-      alert("Veuillez remplir tous les champs.");
+      setError("Veuillez remplir tous les champs.");
+      return;
+    }
+
+    if (events.length >= 2) {
+      setError("Vous pouvez ajouter un maximum de 2 événements.");
       return;
     }
 
@@ -43,59 +50,127 @@ const DashboardSportClub = () => {
     setEvents(newEvents);
     localStorage.setItem("events", JSON.stringify(newEvents));
     setEventData({ name: "", date: "", seats: "", price: "" });
+    setError("");
   };
 
-  const containerStyle = {
-    marginTop: "60px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
+  const handleCloseEvents = () => {
+    setShowEvents(false);
+  };
+
+  const handleShowEvents = () => {
+    setShowEvents(true);
   };
 
   const formContainerStyle = {
-    maxWidth: "350px",
-    width: "140%",
-    backgroundColor: "#f9f9f9",
-    padding: "20px",
-    borderRadius: "8px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    maxWidth: "450px",
+    width: "170%",
+    backgroundColor: "transparent",
+    padding: "30px",
+    borderRadius: "10px",
+    marginLeft: "-80px",
+    boxShadow: "transparent",
+    position: "relative",
+    zIndex: 1,
   };
 
-  const formControlStyle = {
-    fontSize: "14px",
-    paddingLeft: "30px",
-    backgroundColor: "transparent",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
+  const overlayStyle = {
+    position: "absolute",
+    top: "0",
+    left: "0",
+    right: "0",
+    bottom: "0",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    zIndex: 2,
+    overflowY: "auto",
+    padding: "20px",
+    borderRadius: "10px",
   };
 
   const buttonStyle = {
     fontSize: "16px",
-    backgroundColor: "#007bff",
-    borderColor: "#007bff",
   };
 
-  const eventsListContainerStyle = {
+  const tableStyle = {
     marginTop: "40px",
-  };
-
-  const eventCardStyle = {
+    width: "100%",
     backgroundColor: "#ffffff",
-    borderRadius: "8px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-  };
-
-  const redTextStyle = {
-    color: "red",
+    boxShadow: "0 6px 15px rgba(0, 0, 0, 0.1)",
+    borderRadius: "10px",
   };
 
   return (
-    <Container style={containerStyle}>
-      {/* Formulaire pour ajouter un événement */}
+    <Container style={{ marginLeft: "10px" }}>
+      {showEvents && (
+        <div style={overlayStyle}>
+          <div className="d-flex justify-content-between">
+            <Button
+              variant="light"
+              onClick={handleCloseEvents}
+              className="btn-sm"
+              style={{ fontSize: "12px", marginTop: "5px" }}
+            >
+              Fermer
+            </Button>
+          </div>
+          <br />
+          {events.length > 0 ? (
+            <div className="d-flex flex-wrap gap-3 justify-content-start">
+              {events.map((event, index) => (
+                <Card
+                  key={index}
+                  className="p-3 shadow-sm border-0 event-card"
+                  style={{
+                    width: "280px",
+                    marginBottom: "20px",
+                  }}
+                >
+                  <div className="d-flex flex-column">
+                    <div className="d-flex align-items-center mb-2">
+                      <i className="bi bi-calendar-event me-2 text-primary fs-5"></i>
+                      <span className="fw-bold">{event.name}</span>
+                    </div>
+
+                    <div className="d-flex align-items-center mb-2">
+                      <i className="bi bi-calendar-date me-2 text-info fs-5"></i>
+                      <span>{event.date}</span>
+                    </div>
+
+                    <div className="d-flex align-items-center mb-2">
+                      <i className="bi bi-person-check me-2 text-success fs-5"></i>
+                      <span className="badge bg-success">
+                        {event.seats} places
+                      </span>
+                    </div>
+
+                    <div className="d-flex align-items-center">
+                      <i className="bi bi-currency-euro me-2 text-warning fs-5"></i>
+                      <span className="badge bg-warning text-dark">
+                        {event.price} €
+                      </span>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Alert
+              style={{ textAlign: "center", marginLeft: "-0px" }}
+              variant="info"
+            >
+              Aucun événement créé pour le moment.
+            </Alert>
+          )}
+        </div>
+      )}
+
       <div style={formContainerStyle}>
         <Card className="p-3 mb-4">
           <Card.Body>
+            {error && (
+              <Alert style={{ textAlign: "center" }} variant="danger">
+                {error}
+              </Alert>
+            )}
             <Form>
               <Form.Group className="mb-3 position-relative">
                 <i className="bi bi-card-text position-absolute top-50 start-0 translate-middle-y ms-3"></i>
@@ -104,8 +179,7 @@ const DashboardSportClub = () => {
                   name="name"
                   value={eventData.name}
                   onChange={handleInputChange}
-                  placeholder="&#160;&#160;Nom de l'événement"
-                  style={formControlStyle}
+                  placeholder="&#160;&#160;&#160;&#160;&#160;Nom de l'événement :"
                 />
               </Form.Group>
 
@@ -119,8 +193,8 @@ const DashboardSportClub = () => {
                   name="date"
                   value={eventData.date}
                   onChange={handleInputChange}
-                  placeholder="Date"
-                  style={{ ...formControlStyle, paddingLeft: "35px" }}
+                  placeholder="&#160;&#160;&#160;&#160;&#160;&#160;&#160;Date :"
+                  style={{ paddingLeft: "35px" }}
                 />
               </Form.Group>
 
@@ -132,8 +206,7 @@ const DashboardSportClub = () => {
                   min="1"
                   value={eventData.seats}
                   onChange={handleInputChange}
-                  placeholder="&#160;&#160;Nombre de places disponibles"
-                  style={formControlStyle}
+                  placeholder="&#160;&#160;&#160;&#160;&#160;Nombre de places disponibles :"
                 />
               </Form.Group>
 
@@ -146,13 +219,12 @@ const DashboardSportClub = () => {
                   step="0.01"
                   value={eventData.price}
                   onChange={handleInputChange}
-                  placeholder="Prix (€)"
-                  style={formControlStyle}
+                  placeholder="&#160;&#160;&#160;&#160;&#160;Prix (€) :"
                 />
               </Form.Group>
 
               <Button
-                variant="outline-primary"
+                variant="info"
                 className="btn-lg w-100"
                 onClick={handleAddEvent}
                 style={buttonStyle}
@@ -165,36 +237,17 @@ const DashboardSportClub = () => {
         </Card>
       </div>
 
-      {/* Liste des événements */}
-      <div style={eventsListContainerStyle}>
-        {events.map((event, index) => (
-          <Card key={index} className="mb-2 p-3" style={eventCardStyle}>
-            <Card.Body>
-              <p># {index + 1}</p>
-
-              <Card.Title style={redTextStyle}>
-                <i className="bi bi-calendar-event me-2"></i>
-                {event.name}
-              </Card.Title>
-
-              <p style={redTextStyle}>
-                <i className="bi bi-clock me-2"></i>
-                Date: {event.date}
-              </p>
-
-              <p style={redTextStyle}>
-                <i className="bi bi-person-check me-2"></i>
-                Places disponibles: {event.seats}
-              </p>
-
-              <p style={redTextStyle}>
-                <i className="bi bi-cash-coin me-2"></i>
-                Prix: {event.price} €
-              </p>
-            </Card.Body>
-          </Card>
-        ))}
-      </div>
+      {!showEvents && (
+        <Button
+          variant="secondary"
+          onClick={handleShowEvents}
+          className="mt-3"
+          style={{ fontSize: "14px", marginTop: "20px", marginLeft: "20px" }}
+        >
+          <i className="bi bi-eye me-2"></i>
+          Voir les événements
+        </Button>
+      )}
     </Container>
   );
 };

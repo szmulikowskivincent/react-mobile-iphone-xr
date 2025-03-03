@@ -3,19 +3,10 @@ import Navbar from "../components/navigation/Navbar";
 import { Lock } from "react-bootstrap-icons";
 
 const Cover = ({ children }) => {
-  const [isLogoVisible, setIsLogoVisible] = useState(true);
-  const [signalLevel, setSignalLevel] = useState(1);
+  const [signalLevel, setSignalLevel] = useState(3);
   const [isLocked, setIsLocked] = useState(false);
   const [enteredCode, setEnteredCode] = useState("");
   const correctCode = "13070";
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLogoVisible(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,13 +16,14 @@ const Cover = ({ children }) => {
   }, []);
 
   const handleButtonClick = (num) => {
-    if (enteredCode.length < 5) {
-      setEnteredCode(enteredCode + num);
-    }
-    if (enteredCode + num === correctCode) {
-      setIsLocked(false);
-      setEnteredCode("");
-    }
+    setEnteredCode((prev) => {
+      const newCode = prev + num;
+      if (newCode === correctCode) {
+        setIsLocked(false);
+        return "";
+      }
+      return newCode;
+    });
   };
 
   return (
@@ -39,26 +31,12 @@ const Cover = ({ children }) => {
       className="iphone-xr-cover"
       style={{
         position: "relative",
-        boxShadow: "0 0 20px 5px rgba(0, 255, 0, 0.3)",
+        boxShadow: "0 0 20px 5px rgba(0, 176, 240, 0.8)",
       }}
     >
       <Navbar />
       {children}
-      {isLogoVisible && (
-        <img
-          src="/apple_logo_PNG19673.png"
-          alt="Apple Logo"
-          style={{
-            width: "200px",
-            height: "200px",
-            marginBottom: "300px",
-            marginLeft: "75px",
-            objectFit: "contain",
-            transition: "opacity 1s ease-out",
-          }}
-        />
-      )}
-      {/* Icône de webcam iPhone en haut au centre */}
+
       <div
         style={{
           position: "absolute",
@@ -83,7 +61,7 @@ const Cover = ({ children }) => {
           }}
         ></div>
       </div>
-      {/* Niveau de batterie et réseau en haut à droite */}
+
       <div
         style={{
           position: "absolute",
@@ -94,7 +72,6 @@ const Cover = ({ children }) => {
           gap: "10px",
         }}
       >
-        {/* Niveau de réseau avec animation */}
         <div style={{ display: "flex", gap: "2px" }}>
           {[1, 2, 3, 4].map((level) => (
             <div
@@ -109,7 +86,6 @@ const Cover = ({ children }) => {
             ></div>
           ))}
         </div>
-        {/* Icône de batterie avec 35% de charge en rouge */}
         <div
           style={{
             width: "20px",
@@ -144,7 +120,7 @@ const Cover = ({ children }) => {
           ></div>
         </div>
       </div>
-      {/* Bouton Start */}
+
       <button
         onClick={() => setIsLocked(true)}
         style={{
@@ -164,9 +140,9 @@ const Cover = ({ children }) => {
           backdropFilter: "blur(10px)",
         }}
       >
-        <Lock size={24} /> {/* Icône Lock */}
+        <Lock size={24} />
       </button>
-      {/* Écran de verrouillage */}
+
       {isLocked && (
         <div
           style={{
@@ -184,6 +160,7 @@ const Cover = ({ children }) => {
           }}
         >
           <p>Entrez votre code</p>
+
           <div
             style={{
               display: "grid",

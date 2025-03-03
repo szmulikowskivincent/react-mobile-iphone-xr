@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const Services = () => {
+const Abonnements = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [selectedOffer, setSelectedOffer] = useState(null);
@@ -14,7 +14,6 @@ const Services = () => {
       price: "Gratuit",
       features: ["✔ Présence en ligne", "✔ Accès limité aux événements"],
       icon: "bi-box-seam text-secondary",
-      border: "border-secondary",
     },
     {
       title: "Offre Standard",
@@ -25,7 +24,6 @@ const Services = () => {
         "✔ Support prioritaire",
       ],
       icon: "bi-star text-success",
-      border: "border-success",
     },
     {
       title: "Offre Premium",
@@ -36,7 +34,6 @@ const Services = () => {
         "✔ Accompagnement personnalisé",
       ],
       icon: "bi-gem text-primary",
-      border: "border-primary",
     },
   ];
 
@@ -49,46 +46,46 @@ const Services = () => {
 
   return (
     <div
+      className="w-100"
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        width: "390px",
-        height: "880px",
-        margin: "0 auto",
-        backgroundColor: "#fff",
-        overflow: "hidden",
+        maxWidth: "390px",
+        height: "850px",
+        backgroundColor: "transparent",
         padding: "20px",
-        border: "9px solid black",
+        border: "none",
         borderRadius: "20px",
-        boxShadow: "0 0 20px 5px rgba(0, 255, 0, 0.3)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        overflow: "hidden",
+        border: "9px solid black",
+        boxShadow: "0 0 15px 3px rgba(0, 176, 240, 0.7)",
       }}
     >
-      <div className="container services-container mt-5 services-page">
-        <div style={{marginBottom: "120px"}} className="row mt-4 g-4">
+      <div className="container mt-3">
+        <div className="row g-2">
           {offers.map((offer, index) => (
-            <div
-              className="col-12 col-sm-6 col-md-4 d-flex align-items-stretch"
-              key={index}
-            >
-              <div
-                style={{ marginTop: "-0px" }}
-                className={`card ${offer.border} text-center w-100`}
-              >
-                <div className="card-header bg-light text-dark">
+            <div className="col-12" key={index}>
+              <div className="card text-center border-0 shadow-sm p-2">
+                <div
+                  className="card-header text-dark fw-bold"
+                  style={{ fontSize: "14px", padding: "6px" }}
+                >
                   {offer.title}
                 </div>
-                <div className="card-body">
-                  <i className={offer.icon} style={{ fontSize: "16px" }}></i>
-                  <h5 className="card-title">{offer.price}</h5>
-                  <ul className="list-unstyled">
+                <div className="card-body p-2">
+                  <i className={offer.icon} style={{ fontSize: "18px" }}></i>
+                  <h6 className="mt-1 fw-bold">{offer.price}</h6>
+                  <ul
+                    className="list-unstyled"
+                    style={{ fontSize: "12px", marginBottom: "4px" }}
+                  >
                     {offer.features.map((feature, idx) => (
                       <li key={idx}>{feature}</li>
                     ))}
                   </ul>
                   <button
-                    className="btn btn-info mt-auto"
+                    className="btn btn-info btn-sm"
                     onClick={() => handleShow(offer)}
                   >
                     Voir le détail
@@ -102,29 +99,31 @@ const Services = () => {
         {selectedOffer && (
           <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton>
-              <Modal.Title>{selectedOffer.title}</Modal.Title>
+              <Modal.Title style={{ fontSize: "16px" }}>
+                {selectedOffer.title}
+              </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className="text-center">
               <i
                 className={selectedOffer.icon}
-                style={{ fontSize: "2rem" }}
+                style={{ fontSize: "1.5rem" }}
               ></i>
-              <h5>{selectedOffer.price}</h5>
-              <ul>
+              <h6 className="mt-2">{selectedOffer.price}</h6>
+              <ul className="list-unstyled" style={{ fontSize: "14px" }}>
                 {selectedOffer.features.map((feature, idx) => (
                   <li key={idx}>{feature}</li>
                 ))}
               </ul>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
+              <Button variant="secondary" size="sm" onClick={handleClose}>
                 Fermer
               </Button>
             </Modal.Footer>
           </Modal>
         )}
       </div>
-      {/* Bouton de redirection vers "/abonnement" */}
+
       <button
         onClick={() => navigate("/offres")}
         className="btn"
@@ -133,9 +132,10 @@ const Services = () => {
           color: "#fff",
           fontWeight: "bold",
           borderRadius: "30px",
-          padding: "10px 30px",
+          padding: "8px 25px",
           position: "absolute",
-          bottom: "95px",
+          bottom: "80px",
+          fontSize: "14px",
         }}
       >
         Accéder aux offres
@@ -144,4 +144,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default Abonnements;

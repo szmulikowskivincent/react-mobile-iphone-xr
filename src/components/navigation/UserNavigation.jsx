@@ -13,9 +13,8 @@ import {
   FaUser,
   FaTachometerAlt,
 } from "react-icons/fa";
-import "../../css/Navbar.css";
 
-const Navbar = () => {
+const UserNavigation = () => {
   const navigate = useNavigate();
   const [initials, setInitials] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -65,7 +64,17 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg">
+    <nav
+      className="navbar navbar-expand-lg"
+      style={{
+        marginLeft: "-0px",
+        position: "fixed",
+        top: "40px",
+        left: "20px",
+        zIndex: 1050,
+        width: "100%",
+      }}
+    >
       <div className="container-fluid">
         <button
           className="navbar-toggler"
@@ -78,6 +87,11 @@ const Navbar = () => {
         <div
           className={`collapse navbar-collapse ${isMenuOpen ? "show" : ""}`}
           id="navbarNav"
+          style={{
+            transition: "all 0.3s ease",
+            overflow: "hidden",
+            height: isMenuOpen ? "auto" : "0",
+          }}
         >
           <ul style={{ marginLeft: "15px" }} className="navbar-nav me-auto">
             {!isAuthenticated && (
@@ -99,7 +113,7 @@ const Navbar = () => {
                 <FaStore /> Store
               </Link>
             </li>
-            {!isAuthenticated && (
+            {!isAuthenticated ? (
               <>
                 <li className="nav-item">
                   <Link className="nav-link" to="/register">
@@ -112,13 +126,7 @@ const Navbar = () => {
                   </Link>
                 </li>
               </>
-            )}
-            <li className="nav-item">
-              <Link className="nav-link" to="/contact">
-                <FaEnvelope /> Contact
-              </Link>
-            </li>
-            {isAuthenticated && role && (
+            ) : (
               <>
                 <li className="nav-item">
                   <Link className="nav-link" to="/profile">
@@ -140,43 +148,10 @@ const Navbar = () => {
               </>
             )}
           </ul>
-
-          <Link
-            title="Home"
-            className="navbar-brand d-flex align-items-center"
-            to="/"
-          >
-            <img
-              style={{ marginTop: "10px" }}
-              src="/logo_ZakUp_v1.webp"
-              alt="Logo"
-            />
-          </Link>
-
-          {isAuthenticated && role && (
-            <div className="d-flex align-items-center">
-              <div className="position-relative notification-container">
-                {notifications.length > 0 && (
-                  <div
-                    style={{ marginLeft: "80px" }}
-                    className="notification-message"
-                  >
-                    {`${notifications.length} 🔔 nouvel événement`}
-                  </div>
-                )}
-              </div>
-              <button
-                className="btn btn-outline-danger btn-logout"
-                onClick={handleLogout}
-              >
-                <FaSignOutAlt size={28} /> Se Déconnecter
-              </button>
-            </div>
-          )}
         </div>
       </div>
     </nav>
   );
 };
 
-export default Navbar;
+export default UserNavigation;

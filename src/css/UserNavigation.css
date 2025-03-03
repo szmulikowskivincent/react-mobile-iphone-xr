@@ -1,0 +1,28 @@
+.navbar-toggler {
+    border: none;
+    outline: none;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.navbar-toggler-icon {
+    inline-size: 28px;
+    block-size: 28px;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dropdown-menu {
+    min-inline-size: 200px;
+    text-align: center;
+}
+
+.dropdown-item {
+    cursor: pointer;
+}
